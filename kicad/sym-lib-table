@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name GNSS_Firehose)(type Legacy)(uri ${KIPRJMOD}/GNSS_Firehose.lib)(options "")(descr ""))
+)

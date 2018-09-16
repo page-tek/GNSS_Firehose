@@ -1,0 +1,1023 @@
+EESchema Schematic File Version 4
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 8 11
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L GNSS_Firehose:XS6SLX16FTG256 U12
+U 1 1 5AB5A721
+P 1950 850
+F 0 "U12" H 2150 1150 60  0000 L CNN
+F 1 "XS6SLX16FTG256" H 2150 1050 60  0000 L CNN
+F 2 "footprints:BGA256" V 2550 -450 60  0001 C CNN
+F 3 "" V 2550 -450 60  0001 C CNN
+F 4 "6slx16ftg256" V 1750 -100 60  0001 L CNN "manf#"
+	1    1950 850 
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:XS6SLX16FTG256 U12
+U 2 1 5AB5A7AD
+P 5200 850
+F 0 "U12" H 5400 1150 60  0000 L CNN
+F 1 "XS6SLX16FTG256" H 5400 1050 60  0000 L CNN
+F 2 "footprints:BGA256" V 5800 -450 60  0001 C CNN
+F 3 "" V 5800 -450 60  0001 C CNN
+F 4 "6slx16ftg256" V 5000 -100 60  0001 L CNN "manf#"
+	2    5200 850 
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:XS6SLX16FTG256 U12
+U 4 1 5AB5A7DF
+P 9000 850
+F 0 "U12" H 9200 1150 60  0000 L CNN
+F 1 "XS6SLX16FTG256" H 9200 1050 60  0000 L CNN
+F 2 "footprints:BGA256" V 9600 -450 60  0001 C CNN
+F 3 "" V 9600 -450 60  0001 C CNN
+F 4 "6slx16ftg256" V 8800 -100 60  0001 L CNN "manf#"
+	4    9000 850 
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:LED LED2
+U 1 1 5AB5CF6E
+P 6400 7150
+F 0 "LED2" H 6400 7300 60  0000 C CNN
+F 1 "LED" H 6950 7300 60  0001 C CNN
+F 2 "footprints:APA2106" H 6410 7150 60  0001 C CNN
+F 3 "" H 6410 7150 60  0001 C CNN
+	1    6400 7150
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:LED LED3
+U 1 1 5AB5CF75
+P 6400 7500
+F 0 "LED3" H 6400 7650 60  0000 C CNN
+F 1 "LED" H 6950 7500 60  0001 C CNN
+F 2 "footprints:APA2106" H 6410 7500 60  0001 C CNN
+F 3 "" H 6410 7500 60  0001 C CNN
+	1    6400 7500
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:R R24
+U 1 1 5AB5CF7C
+P 5950 7150
+F 0 "R24" H 5850 7300 50  0000 C CNN
+F 1 "330" H 6050 7300 50  0000 C CNN
+F 2 "footprints:0402" H 5950 7150 50  0001 C CNN
+F 3 "" H 5950 7150 50  0001 C CNN
+	1    5950 7150
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:R R32
+U 1 1 5AB5CF83
+P 5950 7500
+F 0 "R32" H 5850 7650 50  0000 C CNN
+F 1 "330" H 6050 7650 50  0000 C CNN
+F 2 "footprints:0402" H 5950 7500 50  0001 C CNN
+F 3 "" H 5950 7500 50  0001 C CNN
+	1    5950 7500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5800 7150 5400 7150
+Wire Wire Line
+	6100 7150 6250 7150
+Wire Wire Line
+	5800 7500 5400 7500
+Wire Wire Line
+	6100 7500 6250 7500
+Wire Wire Line
+	6550 7500 6700 7500
+Wire Wire Line
+	6700 7500 6700 7550
+Wire Wire Line
+	6550 7150 6700 7150
+Wire Wire Line
+	6700 7150 6700 7200
+$Comp
+L GNSS_Firehose:GND #PWR0179
+U 1 1 5AB5CF92
+P 6700 7250
+F 0 "#PWR0179" H 6900 7150 50  0001 C CNN
+F 1 "GND" H 6900 7050 50  0001 C CNN
+F 2 "" H 6700 7250 50  0001 C CNN
+F 3 "" H 6700 7250 50  0001 C CNN
+	1    6700 7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:GND #PWR0180
+U 1 1 5AB5CF98
+P 6700 7600
+F 0 "#PWR0180" H 6900 7500 50  0001 C CNN
+F 1 "GND" H 6900 7400 50  0001 C CNN
+F 2 "" H 6700 7600 50  0001 C CNN
+F 3 "" H 6700 7600 50  0001 C CNN
+	1    6700 7600
+	1    0    0    -1  
+$EndComp
+Text Label 5450 7150 0    60   ~ 0
+led0
+Text Label 5450 7500 0    60   ~ 0
+led1
+$Comp
+L GNSS_Firehose:R R46
+U 1 1 5AB5E214
+P 8200 1050
+F 0 "R46" H 8400 1100 50  0000 C CNN
+F 1 "10k" H 8600 1100 50  0000 C CNN
+F 2 "footprints:0402" H 8200 1050 50  0001 C CNN
+F 3 "" H 8200 1050 50  0001 C CNN
+	1    8200 1050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8050 1050 8000 1050
+$Comp
+L GNSS_Firehose:R R53
+U 1 1 5AB5E21C
+P 8200 5250
+F 0 "R53" H 7950 5300 50  0000 C CNN
+F 1 "1k" H 7750 5300 50  0000 C CNN
+F 2 "footprints:0402" H 8200 5250 50  0001 C CNN
+F 3 "" H 8200 5250 50  0001 C CNN
+	1    8200 5250
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8050 5250 8000 5250
+$Comp
+L GNSS_Firehose:R R55
+U 1 1 5AB5E239
+P 1100 5150
+F 0 "R55" H 1100 5350 50  0000 C CNN
+F 1 "10k" H 1100 5250 50  0000 C CNN
+F 2 "footprints:0402" H 1100 5150 50  0001 C CNN
+F 3 "" H 1100 5150 50  0001 C CNN
+	1    1100 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:C C171
+U 1 1 5AB5E240
+P 1350 5300
+F 0 "C171" V 1300 5500 50  0000 C CNN
+F 1 "100n" V 1400 5500 50  0000 C CNN
+F 2 "footprints:0402" H 1350 5300 50  0001 C CNN
+F 3 "" H 1350 5300 50  0001 C CNN
+	1    1350 5300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5200 4050 4500 4050
+Wire Wire Line
+	5200 4150 4500 4150
+Text Label 4500 4050 0    60   ~ 0
+spare3_n
+Text Label 4500 4150 0    60   ~ 0
+spare3_p
+Wire Wire Line
+	1350 4750 1950 4750
+$Comp
+L GNSS_Firehose:R R38
+U 1 1 5AB5E24C
+P 1200 4750
+F 0 "R38" H 1050 4850 50  0000 C CNN
+F 1 "1k" H 1250 4850 50  0000 C CNN
+F 2 "footprints:0402" H 1200 4750 50  0001 C CNN
+F 3 "" H 1200 4750 50  0001 C CNN
+	1    1200 4750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1050 4750 1000 4750
+$Comp
+L GNSS_Firehose:R R39
+U 1 1 5AB5E254
+P 1200 3050
+F 0 "R39" H 1050 2950 50  0000 C CNN
+F 1 "1k" H 1250 2950 50  0000 C CNN
+F 2 "footprints:0402" H 1200 3050 50  0001 C CNN
+F 3 "" H 1200 3050 50  0001 C CNN
+	1    1200 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:R R40
+U 1 1 5AB5E25B
+P 1200 1950
+F 0 "R40" H 1050 2050 50  0000 C CNN
+F 1 "1k" H 1200 2050 50  0000 C CNN
+F 2 "footprints:0402" H 1200 1950 50  0001 C CNN
+F 3 "" H 1200 1950 50  0001 C CNN
+	1    1200 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:R R41
+U 1 1 5AB5E262
+P 1200 2050
+F 0 "R41" H 1050 1950 50  0000 C CNN
+F 1 "1k" H 1200 1950 50  0000 C CNN
+F 2 "footprints:0402" H 1200 2050 50  0001 C CNN
+F 3 "" H 1200 2050 50  0001 C CNN
+	1    1200 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:R R43
+U 1 1 5AB5E269
+P 1200 950
+F 0 "R43" H 1050 1050 50  0000 C CNN
+F 1 "10k" H 1250 1050 50  0000 C CNN
+F 2 "footprints:0402" H 1200 950 50  0001 C CNN
+F 3 "" H 1200 950 50  0001 C CNN
+	1    1200 950 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5200 4450 4500 4450
+$Comp
+L GNSS_Firehose:R R44
+U 1 1 5AB5E271
+P 8200 1150
+F 0 "R44" H 8400 1200 50  0000 C CNN
+F 1 "10k" H 8600 1200 50  0000 C CNN
+F 2 "footprints:0402" H 8200 1150 50  0001 C CNN
+F 3 "" H 8200 1150 50  0001 C CNN
+	1    8200 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:R R48
+U 1 1 5AB5E278
+P 8200 3950
+F 0 "R48" H 8100 4050 50  0000 C CNN
+F 1 "10k" H 8300 4050 50  0000 C CNN
+F 2 "footprints:0402" H 8200 3950 50  0001 C CNN
+F 3 "" H 8200 3950 50  0001 C CNN
+	1    8200 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:R R49
+U 1 1 5AB5E27F
+P 8200 2150
+F 0 "R49" H 8100 2250 50  0000 C CNN
+F 1 "10k" H 8300 2250 50  0000 C CNN
+F 2 "footprints:0402" H 8200 2150 50  0001 C CNN
+F 3 "" H 8200 2150 50  0001 C CNN
+	1    8200 2150
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:R R50
+U 1 1 5AB5E286
+P 8200 850
+F 0 "R50" H 8400 900 50  0000 C CNN
+F 1 "10k" H 8600 900 50  0000 C CNN
+F 2 "footprints:0402" H 8200 850 50  0001 C CNN
+F 3 "" H 8200 850 50  0001 C CNN
+	1    8200 850 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9000 1050 8350 1050
+Wire Wire Line
+	9000 1150 8350 1150
+Wire Wire Line
+	9000 3950 8350 3950
+Wire Wire Line
+	9000 2150 8350 2150
+Wire Wire Line
+	9000 850  8350 850 
+Wire Wire Line
+	8050 3950 8000 3950
+Wire Wire Line
+	8050 2150 8000 2150
+Wire Wire Line
+	8050 850  8000 850 
+Wire Wire Line
+	8050 1150 8000 1150
+Wire Wire Line
+	900  950  1050 950 
+Wire Wire Line
+	1050 2050 1000 2050
+Wire Wire Line
+	1050 1950 1000 1950
+Wire Wire Line
+	1050 3050 1000 3050
+Wire Wire Line
+	1950 3050 1350 3050
+Wire Wire Line
+	1950 1950 1350 1950
+Wire Wire Line
+	1950 2050 1350 2050
+Wire Wire Line
+	1950 950  1350 950 
+Wire Wire Line
+	1950 4250 1250 4250
+Wire Wire Line
+	1950 2750 1700 2750
+Wire Wire Line
+	1950 2450 1700 2450
+Wire Wire Line
+	1950 3350 1700 3350
+Wire Wire Line
+	1950 4550 1700 4550
+Wire Wire Line
+	1950 4450 1700 4450
+Wire Wire Line
+	1950 4150 1700 4150
+Wire Wire Line
+	1950 4050 1700 4050
+Wire Wire Line
+	1950 3950 1700 3950
+Wire Wire Line
+	1950 3850 1700 3850
+Wire Wire Line
+	1950 3450 1700 3450
+Wire Wire Line
+	1950 3550 1700 3550
+Wire Wire Line
+	1950 2650 1700 2650
+Wire Wire Line
+	1950 3250 1250 3250
+Wire Wire Line
+	1950 1350 1700 1350
+Wire Wire Line
+	1950 1250 1700 1250
+Wire Wire Line
+	1950 2150 1700 2150
+Wire Wire Line
+	1950 2550 1700 2550
+Wire Wire Line
+	1950 2250 1700 2250
+Wire Wire Line
+	5200 2250 4500 2250
+Wire Wire Line
+	5200 2450 4500 2450
+Wire Wire Line
+	5200 2650 4500 2650
+Wire Wire Line
+	5200 2750 4500 2750
+Wire Wire Line
+	5200 4550 4500 4550
+Wire Wire Line
+	5200 4850 4400 4850
+Wire Wire Line
+	5200 4950 4400 4950
+Wire Wire Line
+	9000 2750 8800 2750
+Wire Wire Line
+	9000 6150 8300 6150
+Wire Wire Line
+	1950 850  1700 850 
+Wire Wire Line
+	9000 5250 8350 5250
+$Comp
+L GNSS_Firehose:R R54
+U 1 1 5AB5E2BE
+P 8200 5350
+F 0 "R54" H 7950 5400 50  0000 C CNN
+F 1 "1k" H 7750 5400 50  0000 C CNN
+F 2 "footprints:0402" H 8200 5350 50  0001 C CNN
+F 3 "" H 8200 5350 50  0001 C CNN
+	1    8200 5350
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8050 5350 8000 5350
+Wire Wire Line
+	9000 6050 8800 6050
+Wire Wire Line
+	9000 4550 8800 4550
+Wire Wire Line
+	9000 3250 8800 3250
+Wire Wire Line
+	9000 3350 8800 3350
+Wire Wire Line
+	9000 1850 8800 1850
+Wire Wire Line
+	9000 1950 8800 1950
+Wire Wire Line
+	9000 2050 8800 2050
+Wire Wire Line
+	9000 2250 8800 2250
+Wire Wire Line
+	9000 2350 8800 2350
+Wire Wire Line
+	9000 2450 8800 2450
+Wire Wire Line
+	9000 2650 8800 2650
+Wire Wire Line
+	1950 2350 1700 2350
+Wire Wire Line
+	1950 1850 1700 1850
+Wire Wire Line
+	1950 1450 1700 1450
+Wire Wire Line
+	1950 1550 1700 1550
+Wire Wire Line
+	1950 1050 1700 1050
+Wire Wire Line
+	1950 1150 1700 1150
+Wire Wire Line
+	9000 4750 8800 4750
+Wire Wire Line
+	9000 4850 8800 4850
+Wire Wire Line
+	9000 4450 8800 4450
+Wire Wire Line
+	9000 4950 8800 4950
+Wire Wire Line
+	9000 4650 8800 4650
+Wire Wire Line
+	9000 4150 8800 4150
+Wire Wire Line
+	9000 4050 8800 4050
+Wire Wire Line
+	9000 3150 8800 3150
+Wire Wire Line
+	9000 3050 8800 3050
+Wire Wire Line
+	9000 2850 8800 2850
+Wire Wire Line
+	9000 1450 8800 1450
+Wire Wire Line
+	9000 1550 8800 1550
+Wire Wire Line
+	9000 1250 8800 1250
+Text Label 1250 4250 0    60   ~ 0
+CH1_GC1
+$Comp
+L GNSS_Firehose:GND #PWR0181
+U 1 1 5AB5E2FC
+P 900 1100
+F 0 "#PWR0181" H 1100 1000 50  0001 C CNN
+F 1 "GND" H 1100 900 50  0001 C CNN
+F 2 "" H 900 1100 50  0001 C CNN
+F 3 "" H 900 1100 50  0001 C CNN
+	1    900  1100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	900  950  900  1050
+Text Label 4500 2250 0    60   ~ 0
+led0
+Text Label 4500 2450 0    60   ~ 0
+led1
+Text Label 4500 2650 0    60   ~ 0
+UART_TX
+Text Label 4500 2750 0    60   ~ 0
+UART_RX
+Text Label 4500 4550 0    60   ~ 0
+spare2_p
+Text Label 4500 4450 0    60   ~ 0
+spare2_n
+Text Label 4400 4850 0    60   ~ 0
+spare1_p
+Text Label 4400 4950 0    60   ~ 0
+spare1_n
+Text Label 8300 6150 2    60   ~ 0
+CH3_GC1
+$Comp
+L GNSS_Firehose:GND #PWR0182
+U 1 1 5AB5E31D
+P 1350 5500
+F 0 "#PWR0182" H 1550 5400 50  0001 C CNN
+F 1 "GND" H 1550 5300 50  0001 C CNN
+F 2 "" H 1350 5500 50  0001 C CNN
+F 3 "" H 1350 5500 50  0001 C CNN
+	1    1350 5500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	950  5150 550  5150
+Wire Wire Line
+	1250 5150 1350 5150
+Connection ~ 1350 5150
+Text Label 550  5150 0    60   ~ 0
+CH1_GC1
+$Comp
+L GNSS_Firehose:R R56
+U 1 1 5AB5E327
+P 1100 5650
+F 0 "R56" H 1100 5850 50  0000 C CNN
+F 1 "10k" H 1100 5750 50  0000 C CNN
+F 2 "footprints:0402" H 1100 5650 50  0001 C CNN
+F 3 "" H 1100 5650 50  0001 C CNN
+	1    1100 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:C C172
+U 1 1 5AB5E32E
+P 1350 5800
+F 0 "C172" V 1300 6000 50  0000 C CNN
+F 1 "100n" V 1400 6000 50  0000 C CNN
+F 2 "footprints:0402" H 1350 5800 50  0001 C CNN
+F 3 "" H 1350 5800 50  0001 C CNN
+	1    1350 5800
+	0    1    1    0   
+$EndComp
+$Comp
+L GNSS_Firehose:GND #PWR0183
+U 1 1 5AB5E335
+P 1350 6000
+F 0 "#PWR0183" H 1550 5900 50  0001 C CNN
+F 1 "GND" H 1550 5800 50  0001 C CNN
+F 2 "" H 1350 6000 50  0001 C CNN
+F 3 "" H 1350 6000 50  0001 C CNN
+	1    1350 6000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	950  5650 550  5650
+Wire Wire Line
+	1250 5650 1350 5650
+Connection ~ 1350 5650
+Text Label 550  5650 0    60   ~ 0
+CH2_GC1
+$Comp
+L GNSS_Firehose:R R57
+U 1 1 5AB5E33F
+P 1100 6150
+F 0 "R57" H 1100 6350 50  0000 C CNN
+F 1 "10k" H 1100 6250 50  0000 C CNN
+F 2 "footprints:0402" H 1100 6150 50  0001 C CNN
+F 3 "" H 1100 6150 50  0001 C CNN
+	1    1100 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:C C173
+U 1 1 5AB5E346
+P 1350 6300
+F 0 "C173" V 1300 6500 50  0000 C CNN
+F 1 "100n" V 1400 6500 50  0000 C CNN
+F 2 "footprints:0402" H 1350 6300 50  0001 C CNN
+F 3 "" H 1350 6300 50  0001 C CNN
+	1    1350 6300
+	0    1    1    0   
+$EndComp
+$Comp
+L GNSS_Firehose:GND #PWR0184
+U 1 1 5AB5E34D
+P 1350 6500
+F 0 "#PWR0184" H 1550 6400 50  0001 C CNN
+F 1 "GND" H 1550 6300 50  0001 C CNN
+F 2 "" H 1350 6500 50  0001 C CNN
+F 3 "" H 1350 6500 50  0001 C CNN
+	1    1350 6500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	950  6150 550  6150
+Wire Wire Line
+	1250 6150 1350 6150
+Connection ~ 1350 6150
+Text Label 550  6150 0    60   ~ 0
+CH3_GC1
+Text GLabel 1600 5150 2    50   Input ~ 0
+CH1_GC1_FPGA_LPF
+Text GLabel 1600 5650 2    50   Input ~ 0
+CH2_GC1_FPGA_LPF
+Text GLabel 1600 6150 2    50   Input ~ 0
+CH3_GC1_FPGA_LPF
+Text GLabel 1000 4750 0    50   Input ~ 0
+CH1_SCL
+Text GLabel 1000 3050 0    50   Input ~ 0
+CH1_SDA
+Text GLabel 1700 2750 0    50   Input ~ 0
+CH1_CS
+Text GLabel 1700 2450 0    50   Input ~ 0
+CH1_SCLK
+Text GLabel 1700 3350 0    50   Input ~ 0
+CH1_SDIN
+Text GLabel 1700 4550 0    50   Input ~ 0
+CH1_CLK
+Text GLabel 1700 4450 0    50   Input ~ 0
+CH1_D7
+Text GLabel 1700 4150 0    50   Input ~ 0
+CH1_D6
+Text GLabel 1700 4050 0    50   Input ~ 0
+CH1_D5
+Text GLabel 1700 3950 0    50   Input ~ 0
+CH1_D4
+Text GLabel 1700 3850 0    50   Input ~ 0
+CH1_D3
+Text GLabel 1700 3450 0    50   Input ~ 0
+CH1_D2
+Text GLabel 1700 3550 0    50   Input ~ 0
+CH1_D1
+Text GLabel 1700 2650 0    50   Input ~ 0
+CH1_D0
+Text GLabel 1000 1950 0    50   Input ~ 0
+CH2_SCL
+Text GLabel 1000 2050 0    50   Input ~ 0
+CH2_SDA
+Text GLabel 1700 1250 0    50   Input ~ 0
+CH2_CS
+Text GLabel 1700 1350 0    50   Input ~ 0
+CH2_SCLK
+Text GLabel 1700 2150 0    50   Input ~ 0
+CH2_SDIN
+Text GLabel 1700 2550 0    50   Input ~ 0
+CH2_CLK
+Text GLabel 1700 2250 0    50   Input ~ 0
+CH2_D7
+Text GLabel 8000 1150 0    50   Input ~ 0
+CLOCK_FTEST_LD
+Text GLabel 8000 1050 0    50   Input ~ 0
+CLOCK_READBACK
+Text GLabel 8000 3950 0    50   Input ~ 0
+CLOCK_LE
+Text GLabel 8000 2150 0    50   Input ~ 0
+CLOCK_DATA
+Text GLabel 8000 850  0    50   Input ~ 0
+CLOCK_CLK
+Text Label 1250 3250 0    60   ~ 0
+CH2_GC1
+Text GLabel 8800 3650 0    50   Input ~ 0
+FPGA_CLK+
+Text GLabel 8800 3750 0    50   Input ~ 0
+FPGA_CLK-
+Text GLabel 8800 1650 0    50   Input ~ 0
+CH4_D0
+Text GLabel 8800 1850 0    50   Input ~ 0
+CH4_D1
+Text GLabel 8800 1950 0    50   Input ~ 0
+CH4_D2
+Text GLabel 8800 2050 0    50   Input ~ 0
+CH4_D3
+Text GLabel 8800 2250 0    50   Input ~ 0
+CH4_D4
+Text GLabel 8800 2350 0    50   Input ~ 0
+CH4_D5
+Text GLabel 8800 2450 0    50   Input ~ 0
+CH4_D6
+Text GLabel 8800 2650 0    50   Input ~ 0
+CH4_D7
+Wire Wire Line
+	9000 1650 8800 1650
+Text GLabel 1700 2350 0    50   Input ~ 0
+CH2_D6
+Text GLabel 1700 1850 0    50   Input ~ 0
+CH2_D5
+Text GLabel 1700 1450 0    50   Input ~ 0
+CH2_D4
+Text GLabel 1700 1550 0    50   Input ~ 0
+CH2_D3
+Text GLabel 1700 1050 0    50   Input ~ 0
+CH2_D2
+Text GLabel 1700 1150 0    50   Input ~ 0
+CH2_D1
+Text GLabel 1700 850  0    50   Input ~ 0
+CH2_D0
+Text GLabel 8000 5250 0    50   Input ~ 0
+CH3_SCL
+Text GLabel 8000 5350 0    50   Input ~ 0
+CH3_SDA
+Text GLabel 8800 6050 0    50   Input ~ 0
+CH3_CS
+Text GLabel 8800 4550 0    50   Input ~ 0
+CH3_SCLK
+Text GLabel 8800 4750 0    50   Input ~ 0
+CH3_SDIN
+Text GLabel 8800 4850 0    50   Input ~ 0
+CH3_CLK
+Text GLabel 8800 4450 0    50   Input ~ 0
+CH3_D7
+Text GLabel 8800 4950 0    50   Input ~ 0
+CH3_D6
+Text GLabel 8800 4650 0    50   Input ~ 0
+CH3_D5
+Text GLabel 8800 4150 0    50   Input ~ 0
+CH3_D4
+Text GLabel 8800 4050 0    50   Input ~ 0
+CH3_D3
+Text GLabel 8800 3150 0    50   Input ~ 0
+CH3_D2
+Text GLabel 8800 3050 0    50   Input ~ 0
+CH3_D1
+Text GLabel 8800 2850 0    50   Input ~ 0
+CH3_D0
+Text GLabel 8800 1450 0    50   Input ~ 0
+CH4_CS
+Text GLabel 8800 1550 0    50   Input ~ 0
+CH4_SCLK
+Text GLabel 8800 1250 0    50   Input ~ 0
+CH4_SDIN
+Text GLabel 8800 2750 0    50   Input ~ 0
+CH4_CLK
+Wire Wire Line
+	8350 5350 9000 5350
+Text GLabel 8800 3350 0    50   Input ~ 0
+CPU_CLK+
+Text GLabel 8800 3250 0    50   Input ~ 0
+CPU_CLK-
+Wire Wire Line
+	8800 3650 9000 3650
+Wire Wire Line
+	8800 3750 9000 3750
+$Comp
+L GNSS_Firehose:HEADER_16 J10
+U 1 1 5AC963C5
+P 3300 6950
+F 0 "J10" H 3550 6250 60  0000 C CNN
+F 1 "HEADER_16" H 3700 6150 60  0000 C CNN
+F 2 "footprints:HEADER16_100MIL" H 3300 6950 60  0001 C CNN
+F 3 "" H 3300 6950 60  0001 C CNN
+	1    3300 6950
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:R R85
+U 1 1 5AC963CC
+P 2600 7300
+F 0 "R85" H 2500 7200 50  0000 C CNN
+F 1 "330" H 2700 7200 50  0000 C CNN
+F 2 "footprints:0402" H 2600 7300 50  0001 C CNN
+F 3 "" H 2600 7300 50  0001 C CNN
+	1    2600 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:R R86
+U 1 1 5AC963D3
+P 4100 7300
+F 0 "R86" H 4000 7200 50  0000 C CNN
+F 1 "1k" H 4200 7200 50  0000 C CNN
+F 2 "footprints:0402" H 4100 7300 50  0001 C CNN
+F 3 "" H 4100 7300 50  0001 C CNN
+	1    4100 7300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2950 7000 2850 7000
+Wire Wire Line
+	2850 7000 2850 7200
+$Comp
+L GNSS_Firehose:GND #PWR0185
+U 1 1 5AC963DC
+P 2850 7550
+F 0 "#PWR0185" H 3050 7450 50  0001 C CNN
+F 1 "GND" H 3050 7350 50  0001 C CNN
+F 2 "" H 2850 7550 50  0001 C CNN
+F 3 "" H 2850 7550 50  0001 C CNN
+	1    2850 7550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2950 7400 2850 7400
+Connection ~ 2850 7400
+Wire Wire Line
+	2950 7200 2850 7200
+Connection ~ 2850 7200
+Wire Wire Line
+	3750 7000 3850 7000
+Wire Wire Line
+	3850 7000 3850 7200
+$Comp
+L GNSS_Firehose:GND #PWR0186
+U 1 1 5AC963E8
+P 3850 7550
+F 0 "#PWR0186" H 4050 7450 50  0001 C CNN
+F 1 "GND" H 4050 7350 50  0001 C CNN
+F 2 "" H 3850 7550 50  0001 C CNN
+F 3 "" H 3850 7550 50  0001 C CNN
+	1    3850 7550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 7200 3850 7200
+Connection ~ 3850 7200
+Wire Wire Line
+	3750 7400 3850 7400
+Connection ~ 3850 7400
+Wire Wire Line
+	2950 7300 2750 7300
+Wire Wire Line
+	3750 7300 3950 7300
+Wire Wire Line
+	2450 7300 2000 7300
+Wire Wire Line
+	4250 7300 4700 7300
+Text Label 2000 7300 0    60   ~ 0
+UART_TX
+Text Label 4300 7300 0    60   ~ 0
+UART_RX
+Wire Wire Line
+	2950 7100 2300 7100
+Wire Wire Line
+	2950 6900 2300 6900
+Wire Wire Line
+	2950 6700 2300 6700
+Wire Wire Line
+	3750 6700 4450 6700
+Wire Wire Line
+	3750 6900 4450 6900
+Wire Wire Line
+	3750 7100 4450 7100
+Text Label 2300 6700 0    60   ~ 0
+spare1_p
+Text Label 2300 6900 0    60   ~ 0
+spare2_p
+Text Label 2300 7100 0    60   ~ 0
+spare3_p
+Text Label 4050 6700 0    60   ~ 0
+spare1_n
+Text Label 4050 6900 0    60   ~ 0
+spare2_n
+Text Label 4050 7100 0    60   ~ 0
+spare3_n
+$Comp
+L GNSS_Firehose:C C248
+U 1 1 5AC96404
+P 4200 6350
+F 0 "C248" V 4150 6200 50  0000 C CNN
+F 1 "100n" V 4250 6150 50  0000 C CNN
+F 2 "footprints:0402" H 4200 6350 50  0001 C CNN
+F 3 "" H 4200 6350 50  0001 C CNN
+	1    4200 6350
+	0    1    1    0   
+$EndComp
+$Comp
+L GNSS_Firehose:C C249
+U 1 1 5AC9640B
+P 4450 6350
+F 0 "C249" V 4400 6500 50  0000 C CNN
+F 1 "100n" V 4500 6550 50  0000 C CNN
+F 2 "footprints:0402" H 4450 6350 50  0001 C CNN
+F 3 "" H 4450 6350 50  0001 C CNN
+	1    4450 6350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2950 6800 2950 6450
+Wire Wire Line
+	2950 6450 3750 6450
+Connection ~ 4200 6200
+Wire Wire Line
+	3750 6150 3750 6200
+Wire Wire Line
+	4200 6500 4450 6500
+$Comp
+L GNSS_Firehose:GND #PWR0187
+U 1 1 5AC96417
+P 4450 6550
+F 0 "#PWR0187" H 4650 6450 50  0001 C CNN
+F 1 "GND" H 4650 6350 50  0001 C CNN
+F 2 "" H 4450 6550 50  0001 C CNN
+F 3 "" H 4450 6550 50  0001 C CNN
+	1    4450 6550
+	1    0    0    -1  
+$EndComp
+Connection ~ 3750 6450
+Wire Wire Line
+	3750 6200 4200 6200
+$Comp
+L GNSS_Firehose:VCC_3V3_DIG #PWR0188
+U 1 1 5AC9641F
+P 3750 6150
+F 0 "#PWR0188" H 3930 5920 50  0001 C CNN
+F 1 "VCC_3V3_DIG" H 3880 6020 50  0001 C CNN
+F 2 "" H 3750 6150 50  0001 C CNN
+F 3 "" H 3750 6150 50  0001 C CNN
+	1    3750 6150
+	1    0    0    -1  
+$EndComp
+Connection ~ 3750 6200
+$Comp
+L GNSS_Firehose:Push_SW SW1
+U 1 1 5ADB143A
+P 3450 2400
+F 0 "SW1" H 3500 2500 50  0000 L CNN
+F 1 "Push_SW" H 3450 2340 50  0000 C CNN
+F 2 "footprints:EVQP7" H 3450 2600 50  0001 C CNN
+F 3 "" H 3450 2600 50  0001 C CNN
+	1    3450 2400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GNSS_Firehose:R R59
+U 1 1 5ADB14F6
+P 3900 1800
+F 0 "R59" H 3900 2000 50  0000 C CNN
+F 1 "10k" H 3900 1900 50  0000 C CNN
+F 2 "footprints:0402" H 3900 1800 50  0001 C CNN
+F 3 "" H 3900 1800 50  0001 C CNN
+	1    3900 1800
+	0    1    1    0   
+$EndComp
+$Comp
+L GNSS_Firehose:C C257
+U 1 1 5ADB192B
+P 3900 2350
+F 0 "C257" V 3850 2500 50  0000 C CNN
+F 1 "100n" V 3950 2550 50  0000 C CNN
+F 2 "footprints:0402" H 3900 2350 50  0001 C CNN
+F 3 "" H 3900 2350 50  0001 C CNN
+	1    3900 2350
+	0    1    1    0   
+$EndComp
+$Comp
+L GNSS_Firehose:R R58
+U 1 1 5ADB1B5F
+P 3650 2050
+F 0 "R58" H 3650 2250 50  0000 C CNN
+F 1 "1k" H 3650 2150 50  0000 C CNN
+F 2 "footprints:0402" H 3650 2050 50  0001 C CNN
+F 3 "" H 3650 2050 50  0001 C CNN
+	1    3650 2050
+	-1   0    0    1   
+$EndComp
+$Comp
+L GNSS_Firehose:GND #PWR0189
+U 1 1 5ADB1C09
+P 3450 2700
+F 0 "#PWR0189" H 3650 2600 50  0001 C CNN
+F 1 "GND" H 3650 2500 50  0001 C CNN
+F 2 "" H 3450 2700 50  0001 C CNN
+F 3 "" H 3450 2700 50  0001 C CNN
+	1    3450 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNSS_Firehose:GND #PWR0190
+U 1 1 5ADB1C7A
+P 3900 2700
+F 0 "#PWR0190" H 4100 2600 50  0001 C CNN
+F 1 "GND" H 4100 2500 50  0001 C CNN
+F 2 "" H 3900 2700 50  0001 C CNN
+F 3 "" H 3900 2700 50  0001 C CNN
+	1    3900 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3450 2650 3450 2600
+Wire Wire Line
+	3900 2650 3900 2500
+Wire Wire Line
+	5200 2050 3900 2050
+Wire Wire Line
+	3900 1950 3900 2050
+Connection ~ 3900 2050
+Wire Wire Line
+	3450 2200 3450 2050
+Wire Wire Line
+	3450 2050 3500 2050
+$Comp
+L GNSS_Firehose:VCC_3V3_DIG #PWR0191
+U 1 1 5ADB210B
+P 3900 1550
+F 0 "#PWR0191" H 4080 1320 50  0001 C CNN
+F 1 "VCC_3V3_DIG" H 4030 1420 50  0001 C CNN
+F 2 "" H 3900 1550 50  0001 C CNN
+F 3 "" H 3900 1550 50  0001 C CNN
+	1    3900 1550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3900 1550 3900 1650
+Wire Wire Line
+	1350 5150 1600 5150
+Wire Wire Line
+	1350 5650 1600 5650
+Wire Wire Line
+	1350 6150 1600 6150
+Wire Wire Line
+	2850 7400 2850 7500
+Wire Wire Line
+	2850 7200 2850 7400
+Wire Wire Line
+	3850 7200 3850 7400
+Wire Wire Line
+	3850 7400 3850 7500
+Wire Wire Line
+	4200 6200 4450 6200
+Wire Wire Line
+	3750 6450 3750 6800
+Wire Wire Line
+	3750 6200 3750 6450
+Wire Wire Line
+	3900 2050 3800 2050
+Wire Wire Line
+	3900 2050 3900 2200
+$EndSCHEMATC

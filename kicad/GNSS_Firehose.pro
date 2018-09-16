@@ -1,4 +1,4 @@
-update=Mon 20 Mar 2017 11:13:09 AM PDT
+update=Sun 12 Aug 2018 13:50:28 NZST
 version=1
 last_client=kicad
 [pcbnew]
@@ -25,6 +25,9 @@ version=1
 NetIExt=net
 [general]
 version=1
+[eeschema]
+version=1
+LibDir=
 [schematic_editor]
 version=1
 PageLayoutDescrFile=title_block_simple_letter.kicad_wks
@@ -32,11 +35,6 @@ PlotDirectoryName=
 SubpartIdSeparator=0
 SubpartFirstId=65
 NetFmtName=
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
+SpiceAjustPassiveValues=0
 LabSize=60
-[eeschema]
-version=1
-LibDir=
-[eeschema/libraries]
-LibName1=GNSS_Firehose
+ERC_TestSimilarLabels=1

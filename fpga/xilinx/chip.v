@@ -4,11 +4,12 @@
 // Copyright (c) 2012 Peter Monta <pmonta@gmail.com>
 
 module chip(
+
+// Clock inputs
   input clk_adc_p, clk_adc_n,
-  input clk_3888,
+  input clk_3888_p, clk_3888_n,
 
 // RF channel 1
-
   inout ch1_sda, ch1_scl,
   output ch1_gc1,
   output ch1_cs, ch1_sclk,
@@ -17,7 +18,6 @@ module chip(
   input [7:0] ch1_d,
 
 // RF channel 2
-
   inout ch2_sda, ch2_scl,
   output ch2_gc1,
   output ch2_cs, ch2_sclk,
@@ -26,7 +26,6 @@ module chip(
   input [7:0] ch2_d,
 
 // RF channel 3
-
   inout ch3_sda, ch3_scl,
   output ch3_gc1,
   output ch3_cs, ch3_sclk,
@@ -35,14 +34,12 @@ module chip(
   input [7:0] ch3_d,
 
 // baseband channel 4
-
   output ch4_cs, ch4_sclk,
   inout ch4_sdin,
   input ch4_clk,
   input [7:0] ch4_d,
 
 // Ethernet PHY (RGMII)
-
   output phy_tx_clk,
   output [3:0] phy_tx_data,
   output phy_tx_ctl,
@@ -57,7 +54,6 @@ module chip(
   output phy_nreset,
 
 // clock chip (LMK03806) control and status
-
   output clock_clk,
   output clock_data,
   output clock_le,
@@ -65,23 +61,37 @@ module chip(
   input clock_ftest_ld,
 
 // debugging UART
-
   input uart_rx,
   output uart_tx,
 
 // LEDs
-
   output led0,
   output led1,
 	    
 // flash chip
-
   output spi_cclk,
   input spi_din,
   output spi_mosi,
-  output spi_cso_b
+  output spi_cso_b,
+
+// Spare Pins
+  output spare1_p,
+  output spare1_n,
+  output spare2_p,
+  output spare2_n,
+  output spare3_p,
+  output spare3_n
 );
-  
+
+// debug
+OBUF _buf1(.O(spare1_p), .I(phy_rx_demux_data[6]));
+OBUF _buf2(.O(spare1_n), .I(phy_rx_demux_data[7]));
+OBUF _buf3(.O(spare2_p), .I(phy_rx_demux_ctl[0]));
+OBUF _buf4(.O(spare2_n), .I(phy_rx_demux_ctl[1]));
+OBUF _buf5(.O(spare3_p), .I(phy_rx_demux_data[4]));
+OBUF _buf6(.O(spare3_n), .I(phy_rx_demux_data[5]));
+
+
 // clocks
 
   wire clk_adc;
@@ -91,7 +101,7 @@ module chip(
 
   wire clk_tcxo;
   wire clk_tcxo_i;
-  IBUFG _ibuf_clk_3888(.I(clk_3888), .O(clk_tcxo_i));
+  IBUFDS _ibuf_clk_3888(.I(clk_3888_p), .IB(clk_3888_n), .O(clk_tcxo_i));
   BUFG _bufg_clk_tcxo(.I(clk_tcxo_i), .O(clk_tcxo));
 
 // synthesize Ethernet PHY transmit clock (125 MHz) from clk_tcxo

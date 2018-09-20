@@ -21,8 +21,19 @@ void convert(unsigned char x[], int chan)
   for (i=0; i<960; i++) {
     get_sample(x,6*i+2*(chan-1),&xi);
     get_sample(x,6*i+2*(chan-1)+1,&xq);
-    xi = 2*xi - 3;
-    xq = 2*xq - 3;
+    //xi = 2*xi - 3;
+    //xq = 2*xq - 3;
+    if (xi == 0x00) xi = 0x1E;
+    else if (xi == 0x01) xi=0x5A;
+    else if (xi == 0x02) xi=0xA6;    
+    else if (xi == 0x03) xi=0xE2;
+    else xi = 0;
+    if (xq == 0x00) xq = 0x1E;
+    else if (xq == 0x01) xq=0x5A;
+    else if (xq == 0x02) xq=0xA6;    
+    else if (xq == 0x03) xq=0xE2;
+    else xq = 0;
+
     buf[2*i] = xi;
     buf[2*i+1] = xq; }
   fwrite(buf,1920,1,stdout); }
@@ -91,3 +102,4 @@ int main(int argc, char* argv[])
     i = i + 1;
     t0 = timestamp; }
   return 0; }
+

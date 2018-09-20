@@ -17,10 +17,10 @@ module quantize(
 
   always @(posedge clk)
     casex (t2)
-      18'b00000xxxxxxxxxxxxx: y <= 2'b10;
-      18'b11111xxxxxxxxxxxxx: y <= 2'b01;
-      18'b0xxxxxxxxxxxxxxxxx: y <= 2'b11;
-      default:               y <= 2'b00;
+      18'b00000xxxxxxxxxxxxx: y <= 2'b00; //was 10
+      18'b11111xxxxxxxxxxxxx: y <= 2'b11; //was 01
+      18'b0xxxxxxxxxxxxxxxxx: y <= 2'b01; //was 11
+      default:                y <= 2'b10; //was 00
     endcase
 
 endmodule

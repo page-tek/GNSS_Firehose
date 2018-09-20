@@ -203,12 +203,12 @@ module packet_streamer(
         PREAMBLE_5: begin tx_data <= 8'h55; state <= PREAMBLE_6; end
         PREAMBLE_6: begin tx_data <= 8'h55; state <= PREAMBLE_7; end
         PREAMBLE_7: begin tx_data <= 8'hd5; state <= DEST_0; end
-        DEST_0: begin crc_reset <= 0; crc_en <= 1; tx_data <= 8'hff; state <= DEST_1; end
-        DEST_1: begin tx_data <= 8'hff; state <= DEST_2; end
-        DEST_2: begin tx_data <= 8'hff; state <= DEST_3; end
-        DEST_3: begin tx_data <= 8'hff; state <= DEST_4; end
-        DEST_4: begin tx_data <= 8'hff; state <= DEST_5; end
-        DEST_5: begin tx_data <= 8'hff; state <= SRC_0; end
+        DEST_0: begin crc_reset <= 0; crc_en <= 1; tx_data <= 8'hc8; state <= DEST_1; end
+        DEST_1: begin tx_data <= 8'h1f; state <= DEST_2; end
+        DEST_2: begin tx_data <= 8'h66; state <= DEST_3; end
+        DEST_3: begin tx_data <= 8'h23; state <= DEST_4; end
+        DEST_4: begin tx_data <= 8'hd7; state <= DEST_5; end
+        DEST_5: begin tx_data <= 8'h36; state <= SRC_0; end
         SRC_0: begin tx_data <= mac_addr[47:40]; state <= SRC_1; end
         SRC_1: begin tx_data <= mac_addr[39:32]; state <= SRC_2; end
         SRC_2: begin tx_data <= mac_addr[31:24]; state <= SRC_3; end

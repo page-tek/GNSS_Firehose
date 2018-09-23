@@ -38,13 +38,13 @@ void hw_init()
   delay_10ms();
   port_write(PORT_DCM_RST,0);
   delay_10ms();
-  adc_init(1);
-  adc_init(2);
-  adc_init(3);
-  adc_init(4);
+  //adc_init(1);
+  //adc_init(2);
+  //adc_init(3);
+  //adc_init(4);
   max2112_init(1,45,0x4a000);  // RF channel 1, N=45 (L1), F=0x4a000  1584.754875 MHz
-  max2112_init(2,35,0x16000);  // RF channel 2, N=35 (L2), F=0x16000  1227.727125 MHz
-  max2112_init(3,34,0x0e000);  // RF channel 3, N=34 (L5), F=0x0e000  1191.641625 MHz
+  //max2112_init(2,35,0x16000);  // RF channel 2, N=35 (L2), F=0x16000  1227.727125 MHz
+  //max2112_init(3,34,0x0e000);  // RF channel 3, N=34 (L5), F=0x0e000  1191.641625 MHz
   set_agc(1,240);              // initial AGC value: 240
   set_agc(2,240);
   set_agc(3,240);

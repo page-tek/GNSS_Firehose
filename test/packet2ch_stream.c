@@ -55,7 +55,6 @@ int main(int argc, char* argv[])
   fread(buf,4,1,stdin);
   t0 = -1;
   i = 0;
-  printf("main");
   for (;;) {
     n = read_next_valid_packet();
     if (n!=1)
@@ -68,7 +67,6 @@ int main(int argc, char* argv[])
                 (((long long)buf[35])<<16) |
                 (((long long)buf[36])<<8) |
                 (((long long)buf[37])<<0);
-    printf("%lld\n",timestamp);
     if (t0>0) {
       delta = timestamp - t0;
       if (delta!=960)

@@ -108,6 +108,9 @@ module cpu(
 
   wire [7:0] out_port;
 
+  reg old_read_strobe;
+  reg old_write_en;
+
   always @(posedge clk)
     if (reset) begin
       out_port_0 <= 0;
@@ -149,6 +152,7 @@ module cpu(
       out_port_47 <= 0;
       eth_rx_read <= 0;
       eth_rx_raddr <= 0;
+      eth_tx_we <= 1'b0;
     end else begin
       if (write_strobe)
         case (port_id)
@@ -196,7 +200,28 @@ module cpu(
           8'd52: eth_tx_we <= out_port[0];
           8'd53: eth_tx_ready <= out_port[0];
         endcase
+    
+    old_read_strobe <= read_strobe;
+    old_write_en <= eth_tx_we;
+
+    // auto increment read address
+    if (old_read_strobe == 1'b1 && read_strobe == 1'b0 && port_id == 8'd50)
+      eth_rx_raddr <= eth_rx_raddr + 1;
+    
+    if (old_write_en == 1'b0 && eth_tx_we == 1'b1 && port_id == 8'd52)
+      eth_tx_we <= 1'b0;
+
+    // auto increment write address
+    if (old_write_en == 1'b1 && eth_tx_we == 1'b0 && port_id == 8'd52)
+      eth_tx_waddr <= eth_tx_waddr + 1;
+
     end
+
+
+    
+
+
+
 
   picorv32_soc _picorv32_soc(
     .clk(clk),

@@ -39,11 +39,11 @@
 
 #define barrier() asm volatile("" ::: "memory")
 
-int port_read(int p)
+unsigned int port_read(unsigned int p)
 { barrier();
-  return (int)(*(volatile unsigned int*)(0x80000000+4*p)); }
+  return (unsigned int)(*(volatile unsigned int*)(0x80000000+4*p)); }
 
-void port_write(int p,unsigned int x)
+void port_write(unsigned int p,unsigned int x)
 { barrier();
   (*(volatile unsigned int*)(0x80000000+4*p)) = x; }
 
@@ -71,20 +71,31 @@ int uart_rx_data()
 int uart_rx_ready()
 { return port_read(PORT_UART_RX_READY); }
 
-int eth_rx_data(int addr)
-{ unsigned int x;
+inline int eth_rx_data_set_addr(int addr)
+{
   port_write(PORT_ETH_RX_RADDR,addr);
-  delay_200ns();
-  x = port_read(PORT_ETH_RX_RDATA);
-  return x; }
+}
 
-unsigned int eth_rx_wdata(int addr)
-{ int x0,x1,x2,x3;
-  x0 = eth_rx_data(addr);
-  x1 = eth_rx_data(addr+1);
-  x2 = eth_rx_data(addr+2);
-  x3 = eth_rx_data(addr+3);
-  return (x0<<24) | (x1<<16) | (x2<<8) | x3; }
+unsigned int eth_rx_data_byte()
+{
+  return port_read(PORT_ETH_RX_RDATA);
+}
+
+unsigned int eth_rx_data_2byte()
+{ unsigned int x0,x1;
+  x0 = eth_rx_data_byte();
+  x1 = eth_rx_data_byte();
+  return (x0<<8) | x1;
+}
+
+unsigned int eth_rx_data_4byte()
+{ unsigned int x0,x1,x2,x3;
+  x0 = eth_rx_data_byte();
+  x1 = eth_rx_data_byte();
+  x2 = eth_rx_data_byte();
+  x3 = eth_rx_data_byte();
+  return (x0<<24) | (x1<<16) | (x2<<8) | x3;
+}
 
 void eth_rx_ack()
 { port_write(PORT_ETH_RX_READ,1);
@@ -94,37 +105,39 @@ void eth_rx_ack()
 int eth_rx_ready()
 { return port_read(PORT_ETH_RX_READY); }
 
-void eth_tx_data(unsigned int addr,unsigned int val)
-{ port_write(PORT_ETH_TX_ADDR,addr);
+inline void eth_tx_data_set_addr(unsigned int addr)
+{
+  port_write(PORT_ETH_TX_ADDR,addr);
+}
+
+void eth_tx_data_byte(unsigned int val)
+{ 
   port_write(PORT_ETH_TX_DATA,val);
   port_write(PORT_ETH_TX_WE,1);
-  delay_200ns();
-  port_write(PORT_ETH_TX_WE,0); }
+  //delay_200ns();
+  //port_write(PORT_ETH_TX_WE,0);
+}
 
-void eth_tx_ack(unsigned int tag,unsigned char val)
-{ //tag ^= 0x55555555;
-  eth_tx_data(0,(tag>>24)&0xff);
-  eth_tx_data(1,(tag>>16)&0xff);
-  eth_tx_data(2,(tag>>8)&0xff);
-  eth_tx_data(3,tag&0xff);
-  eth_tx_data(4,val);
-  port_write(PORT_ETH_TX_READY,1);
-  delay_100us();
-  port_write(PORT_ETH_TX_READY,0); }
+void eth_tx_data_2byte(unsigned int val)
+{ 
+  eth_tx_data_byte((val>>8)&0xFF);
+  eth_tx_data_byte(val&0xFF);
+}
 
-void eth_tx_ack_word(unsigned int tag,unsigned int wval)
-{ //tag ^= 0x55555555;
-  eth_tx_data(0,(tag>>24)&0xff);
-  eth_tx_data(1,(tag>>16)&0xff);
-  eth_tx_data(2,(tag>>8)&0xff);
-  eth_tx_data(3,tag&0xff);
-  eth_tx_data(4,(wval>>24)&0xff);
-  eth_tx_data(5,(wval>>16)&0xff);
-  eth_tx_data(6,(wval>>8)&0xff);
-  eth_tx_data(7,wval&0xff);
+void eth_tx_data_4byte(unsigned int val)
+{ 
+  eth_tx_data_byte((val>>24)&0xFF);
+  eth_tx_data_byte((val>>16)&0xFF);
+  eth_tx_data_byte((val>>8)&0xFF);
+  eth_tx_data_byte(val&0xFF);
+}
+
+void eth_tx_send()
+{
   port_write(PORT_ETH_TX_READY,1);
-  delay_100us();
-  port_write(PORT_ETH_TX_READY,0); }
+  //delay_100us();
+  port_write(PORT_ETH_TX_READY,0);
+}
 
 unsigned int get_jiffies()
 { return port_read(PORT_JIFFIES); }

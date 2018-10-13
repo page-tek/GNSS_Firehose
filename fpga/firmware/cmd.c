@@ -1,40 +1,69 @@
-int global_read(int addr)
-{ switch (addr) {
-    case 0: return gain[0]&0xff; break;
-    case 1: return (gain[0]>>8)&0xff; break;
-    case 2: return gain[1]&0xff; break;
-    case 3: return (gain[1]>>8)&0xff; break;
-    case 4: return gain[2]&0xff; break;
-    case 5: return (gain[2]>>8)&0xff; break;
-    case 6: return link_up; break;
-    case 7: return agc_enable; break;
-    case 8: return phy_poll_enable; break;
-    default: return 0; } }
+int 
+global_read(int addr)
+{ 
+  switch (addr) 
+    {
+      case 0: return gain[0]&0xff; break;
+      case 1: return (gain[0]>>8)&0xff; break;
+      case 2: return gain[1]&0xff; break;
+      case 3: return (gain[1]>>8)&0xff; break;
+      case 4: return gain[2]&0xff; break;
+      case 5: return (gain[2]>>8)&0xff; break;
+      case 6: return link_up; break;
+      case 7: return agc_enable; break;
+      case 8: return phy_poll_enable; break;
+      default: return 0;
+    }
+}
 
-void global_set(int addr,int val)
-{ switch (addr) {
-    case 0: gain[0] = (gain[0]&0xffffff00) | (val&0xff); break;
-    case 1: gain[0] = (gain[0]&0xffff00ff) | ((val&0xff)<<8); break;
-    case 2: gain[1] = (gain[1]&0xffffff00) | (val&0xff); break;
-    case 3: gain[1] = (gain[1]&0xffff00ff) | ((val&0xff)<<8); break;
-    case 4: gain[2] = (gain[2]&0xffffff00) | (val&0xff); break;
-    case 5: gain[2] = (gain[2]&0xffff00ff) | ((val&0xff)<<8); break;
-    case 7: agc_enable = val; break;
-    case 8: phy_poll_enable = val; break; } }
 
-unsigned char addr;             // UART command address
-unsigned char data;             // UART command data
+void 
+global_set(int addr,int val)
+{ 
+  switch (addr)
+    {
+      case 0: gain[0] = (gain[0]&0xffffff00) | (val&0xff); break;
+      case 1: gain[0] = (gain[0]&0xffff00ff) | ((val&0xff)<<8); break;
+      case 2: gain[1] = (gain[1]&0xffffff00) | (val&0xff); break;
+      case 3: gain[1] = (gain[1]&0xffff00ff) | ((val&0xff)<<8); break;
+      case 4: gain[2] = (gain[2]&0xffffff00) | (val&0xff); break;
+      case 5: gain[2] = (gain[2]&0xffff00ff) | ((val&0xff)<<8); break;
+      case 7: agc_enable = val; break;
+      case 8: phy_poll_enable = val; break;
+    }
+}
 
-void process_char(char c)
-{ switch (c) {
-    case 'm':  addr = data; break;
-    case 'w':  port_write(addr,data); break;
-    case 'r':  putchar(port_read(addr)); break;
-    case 'x':  putchar(addr); break;
-    case 'p':  phy_read(addr); break;
-    case 'f':  putchar(spi_read(0x7ff00+addr)); break;
-    case 's':  putchar(global_read(addr)); break;
-    default:  data = (data<<4) | (c&0x0f); data &= 0xff; break; } }
+
+void
+process_char(char c)
+{
+static unsigned char addr;  // UART command address
+static unsigned char data;  // UART command data
+
+  switch (c) 
+    { 
+      case 'm':  addr = data; break;
+      case 'w':  port_write(addr,data); break;
+      case 'r':  putchar(port_read(addr)); break;
+      case 'x':  putchar(addr); break;
+      case 'p':  phy_read(addr); break;
+      case 'f':  putchar(spi_read(0x7ff00+addr)); break;
+      case 's':  putchar(global_read(addr)); break;
+      default:  data = (data<<4) | (c&0x0f); data &= 0xff; break;
+    }
+}
+
+void memcpy(void *dest, void *src, char n) 
+{ 
+   // Typecast src and dest addresses to (char *) 
+   char *csrc = (char *)src; 
+   char *cdest = (char *)dest; 
+  
+   // Copy contents of src[] to dest[] 
+   for (int i=0; i<n; i++) 
+       cdest[i] = csrc[i]; 
+} 
+
 
 #define CMD_PORT_WRITE               1
 #define CMD_PORT_READ                2
@@ -52,105 +81,107 @@ void process_char(char c)
 #define CMD_MAX2112_WRITE_REG       14
 #define CMD_MAX2112_READ_REG        15
 
-void process_eth_packet()
+void process_eth_cmd(char* buf)
 { int cmd;
   unsigned int tag;
   unsigned char addr, val, channel;
   unsigned int waddr, wval;
-  tag = eth_rx_wdata(0);
-  cmd = eth_rx_data(4);
+  
+  eth_rx_data_set_addr(36);
+  //copy tag across
+  buf[0] = eth_rx_data_byte();
+  buf[1] = eth_rx_data_byte();
+  buf[2] = eth_rx_data_byte();
+  buf[3] = eth_rx_data_byte();
+  cmd = eth_rx_data_byte();
   switch (cmd) {
     case CMD_PORT_WRITE:
-      addr = eth_rx_data(5);
-      val = eth_rx_data(6);
+      addr = eth_rx_data_byte();
+      val = eth_rx_data_byte();
       port_write(addr,val);
-      eth_tx_ack(tag,0);
       break;
     case CMD_PORT_READ:
-      addr = eth_rx_data(5);
+      addr = eth_rx_data_byte();
       val = port_read(addr);
-      eth_tx_ack(tag,val);
+      memcpy(buf+4,&val,1);
       break;
     case CMD_ADC_WRITE_REG:
-      channel = eth_rx_data(5);
-      addr = eth_rx_data(6);
-      val = eth_rx_data(7);
+      channel = eth_rx_data_byte();
+      addr = eth_rx_data_byte();
+      val = eth_rx_data_byte();
       adc_write(channel,addr,val);
-      eth_tx_ack(tag,0);
       break;
     case CMD_ADC_READ_REG:
-      channel = eth_rx_data(5);
-      addr = eth_rx_data(6);
+      channel = eth_rx_data_byte();
+      addr = eth_rx_data_byte();
       val = adc_read(channel,addr);
-      eth_tx_ack(tag,val);
+      memcpy(buf+4,&val,1);
       break;
     case CMD_GLOBAL_WRITE:
-      addr = eth_rx_data(5);
-      val = eth_rx_data(6);
+      addr = eth_rx_data_byte();
+      val = eth_rx_data_byte();
       global_set(addr,val);
-      eth_tx_ack(tag,0);
       break;
     case CMD_GLOBAL_READ:
-      addr = eth_rx_data(5);
+      addr = eth_rx_data_byte();
       val = global_read(addr);
-      eth_tx_ack(tag,val);
+      memcpy(buf+4,&val,1);
       break;
     case CMD_CLOCK_WRITE_REG:
-      addr = eth_rx_data(5);
-      wval = eth_rx_wdata(6);
+      addr = eth_rx_data_byte();
+      wval = eth_rx_data_4byte();
       wval = (wval&0xffffffe0) | (addr&0x0000001f);
       clock_write(wval);
-      eth_tx_ack(tag,0);
       break;
     case CMD_CLOCK_READ_REG:
-      addr = eth_rx_data(5);
+      addr = eth_rx_data_byte(5);
       wval = clock_read(addr);
-      eth_tx_ack_word(tag,wval);
+      memcpy(buf+4,&wval,4);
       break;
     case CMD_PHY_WRITE_REG:
-      addr = eth_rx_data(5);
-      wval = eth_rx_wdata(6);
+      addr = eth_rx_data_byte(5);
+      wval = eth_rx_data_4byte(6);
       phy_smi_write(addr,wval);
-      eth_tx_ack(tag,0);
       break;
     case CMD_PHY_READ_REG:
-      addr = eth_rx_data(5);
+      addr = eth_rx_data_byte();
       wval = phy_smi_read(addr);
-      eth_tx_ack_word(tag,wval);
+      memcpy(buf+4,&wval,4);
       break;
     case CMD_FLASH_READ:
-      waddr = eth_rx_wdata(5);
+      waddr = eth_rx_data_4byte(5);
       val = spi_read(waddr);
-      eth_tx_ack(tag,val);
+      memcpy(buf+4,&val,1);
       break;
     case CMD_FLASH_WRITE:
-      waddr = eth_rx_wdata(5);
-      val = eth_rx_data(9);
-      if ((eth_rx_data(10)!=0xbe) || (eth_rx_data(11)!=0xef))
-        eth_tx_ack(tag,1);
+      waddr = eth_rx_data_4byte();
+      val = eth_rx_data_byte();
+      if ((eth_rx_data_byte()!=0xbe) || (eth_rx_data_byte()!=0xef))
+        *(buf+4) = 0x01;
       else {
         spi_write(waddr,val);
-        eth_tx_ack(tag,0); }
+        }
       break;
     case CMD_FLASH_ERASE_CONFIG_AREA:
-      waddr = eth_rx_wdata(5);
-      if ((eth_rx_data(9)!=0xbe) || (eth_rx_data(10)!=0xef))
-        eth_tx_ack(tag,1);
+      waddr = eth_rx_data_4byte();
+      if ((eth_rx_data_byte()!=0xbe) || (eth_rx_data_byte()!=0xef))
+        *(buf+4) = 0x01;
       else {
         spi_sector_erase(waddr);
-        eth_tx_ack(tag,0); }
+        }
       break;
     case CMD_MAX2112_WRITE_REG:
-      channel = eth_rx_data(5);
-      addr = eth_rx_data(6);
-      val = eth_rx_data(7);
+      channel = eth_rx_data_byte();
+      addr = eth_rx_data_byte();
+      val = eth_rx_data_byte();
       i2c_write(channel,addr,val);
-      eth_tx_ack(tag,0);
       break;
     case CMD_MAX2112_READ_REG:
-      channel = eth_rx_data(5);
-      addr = eth_rx_data(6);
+      channel = eth_rx_data_byte();
+      addr = eth_rx_data_byte();
       val = i2c_read(channel,addr);
-      eth_tx_ack(tag,val);
-      break; }
-  eth_rx_ack(); }
+      memcpy(buf+4,&val,1);
+      break;
+    }
+  return;
+}

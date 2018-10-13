@@ -40,27 +40,28 @@ module packet_rx(
     case (state)
       IDLE: if (ctl==2'b11) state <= PREAMBLE;
       PREAMBLE: if (ctl!=2'b11) state <= IDLE; else if (data==8'hd5) state <= DEST_1;
-      DEST_1: if (ctl!=2'b11) state <= IDLE; else if (data==mac_addr[47:40]) state <= DEST_2; else state <= IGNORE;
-      DEST_2: if (ctl!=2'b11) state <= IDLE; else if (data==mac_addr[39:32]) state <= DEST_3; else state <= IGNORE;
-      DEST_3: if (ctl!=2'b11) state <= IDLE; else if (data==mac_addr[31:24]) state <= DEST_4; else state <= IGNORE;
-      DEST_4: if (ctl!=2'b11) state <= IDLE; else if (data==mac_addr[23:16]) state <= DEST_5; else state <= IGNORE;
-      DEST_5: if (ctl!=2'b11) state <= IDLE; else if (data==mac_addr[15:8]) state <= DEST_6; else state <= IGNORE;
-      DEST_6: if (ctl!=2'b11) state <= IDLE; else if (data==mac_addr[7:0]) begin c <= 0; state <= SKIP; end else state <= IGNORE;
-      SKIP:                        // skip over source MAC address and type/len field to get to start of payload
-        if (ctl!=2'b11)
-          state <= IDLE;
-        else begin
-          c <= c + 1;
-          if (c==4'd7) begin
-            eth_rx_addr <= 0;
-            eth_rx_we <= 1;
-            state <= PAYLOAD;
-          end
-        end
+      DEST_1: if (ctl!=2'b11) state <= IDLE; else if (data==mac_addr[47:40] || data==8'hFF) state <= DEST_2; else state <= IGNORE;
+      DEST_2: if (ctl!=2'b11) state <= IDLE; else if (data==mac_addr[39:32] || data==8'hFF) state <= DEST_3; else state <= IGNORE;
+      DEST_3: if (ctl!=2'b11) state <= IDLE; else if (data==mac_addr[31:24] || data==8'hFF) state <= DEST_4; else state <= IGNORE;
+      DEST_4: if (ctl!=2'b11) state <= IDLE; else if (data==mac_addr[23:16] || data==8'hFF) state <= DEST_5; else state <= IGNORE;
+      DEST_5: if (ctl!=2'b11) state <= IDLE; else if (data==mac_addr[15:8] || data==8'hFF) state <= DEST_6; else state <= IGNORE;
+      DEST_6: if (ctl!=2'b11) state <= IDLE; else if (data==mac_addr[7:0] || data==8'hFF) begin eth_rx_addr <= 0; eth_rx_we <= 1; state <= PAYLOAD; end else state <= IGNORE;
+//      SKIP:                        // skip over source MAC address and type/len field to get to start of payload
+//        if (ctl!=2'b11)
+//          state <= IDLE;
+//        else begin
+//          c <= c + 1;
+//          if (c==4'd7) begin
+//            eth_rx_addr <= 0;
+//            eth_rx_we <= 1;
+//            state <= PAYLOAD;
+//          end
+//        end
       PAYLOAD:                     // place first 64 bytes of payload into packet RAM
-        if (ctl!=2'b11)
-          state <= IDLE;
-        else if (eth_rx_addr==6'd63) begin 
+        //if (ctl!=2'b11)
+        //  state <= IDLE;
+        //else if (eth_rx_addr==6'd63) begin
+        if (eth_rx_addr==6'd63 || ctl!=2'b11) begin 
           eth_rx_we <= 0;
           eth_rx_ready <= 1;
           state <= WAIT;

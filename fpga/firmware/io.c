@@ -99,7 +99,7 @@ unsigned int eth_rx_data_4byte()
 
 void eth_rx_ack()
 { port_write(PORT_ETH_RX_READ,1);
-  delay_200ns();
+  //delay_200ns();
   port_write(PORT_ETH_RX_READ,0); }
 
 int eth_rx_ready()
@@ -150,3 +150,31 @@ void puts(char* s)
 { char c;
   while (c=*s++)
     putchar(c); }
+
+void putint(unsigned int u)
+{
+  unsigned int t;
+  unsigned int b = 1;
+
+  while (u / b) b = b * 10;
+  b = b / 10;  
+  if (b) {
+    while (b) {
+      t = u / b;
+      putchar((char)(t + '0'));
+	  u = u - (t * b);
+      b = b / 10;
+	}
+  } else {
+    putchar('0');
+  }
+}
+
+void puthex(char u)
+{
+  const char HEX [16] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+
+  putchar(HEX[(u >> 4) & 0x0F]);
+  putchar(HEX[u & 0x0F]);
+}
+

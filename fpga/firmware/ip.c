@@ -47,15 +47,12 @@ void process_eth_packet()
   //check for UDP packet
   eth_rx_data_set_addr(6);
   if (eth_rx_data_2byte()==0x0800) {
-puts("IP:");
     // Got an IP ethertype, is it UDP
     eth_rx_data_set_addr(17);
     if (eth_rx_data_byte()==0x11) {
-puts("UDP:");
       // Got UDP packet, is it for me
       eth_rx_data_set_addr(24);
       if (eth_rx_data_4byte()==IPaddr) {
-puts("IPaddr:");
         eth_rx_data_set_addr(20);
         sIPaddr = eth_rx_data_4byte();
         // It's for me let's process it.

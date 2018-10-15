@@ -40,6 +40,7 @@ class hw:
     # print 'writing <%s>' % s
     for c in s:
       if self.mode=="uart":
+        time.sleep(0.001)
         self.ser.write(c)
       elif self.mode=="ethernet":
         self.s.send(self.preamble+c)
@@ -607,7 +608,7 @@ class hw:
     time.sleep(3)
 
   def spi_dump(self):
-    for i in range(8):
+    for i in range(16):
       addr = 0x7ff00 + i
       print '0x%05x: 0x%02x ' % (addr,self.spi_read(addr))
 

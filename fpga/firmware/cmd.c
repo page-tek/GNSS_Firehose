@@ -1,5 +1,4 @@
-int 
-global_read(int addr)
+int global_read(int addr)
 { 
   switch (addr) 
     {
@@ -17,8 +16,7 @@ global_read(int addr)
 }
 
 
-void 
-global_set(int addr,int val)
+void global_set(int addr,int val)
 { 
   switch (addr)
     {
@@ -34,8 +32,7 @@ global_set(int addr,int val)
 }
 
 
-void
-process_char(char c)
+void process_char(char c)
 {
 static unsigned char addr;  // UART command address
 static unsigned char data;  // UART command data

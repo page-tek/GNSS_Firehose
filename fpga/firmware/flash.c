@@ -73,6 +73,7 @@ void spi_sector_erase(int addr)
 
 #define PKT_MAC_ADDR       1
 #define PKT_DC_OFFSET      2
+#define PKT_IP_ADDR        3
 
 void spi_read_config()
 { int addr;
@@ -87,7 +88,9 @@ void spi_read_config()
       case PKT_MAC_ADDR:                         // initialize MAC address from flash
         for (i=0; i<6; i++) {
           val = spi_read(addr+i);
-          port_write(PORT_MAC_ADDR+i,val); }
+          port_write(PORT_MAC_ADDR+i,val);
+          MACaddr[i]=val;
+        }
         addr += len;
         break;
       case PKT_DC_OFFSET:                        // DC offsets of RF-channel ADCs
@@ -96,6 +99,13 @@ void spi_read_config()
           port_write(PORT_DC_BASE+i,val); }
         addr += len;
         break;
+      case PKT_IP_ADDR:
+        IPaddr = 0;
+        for (i=0; i<4; i++) {
+          IPaddr = IPaddr << 8;  
+          val = spi_read(addr+i);
+          IPaddr += val;
+        }  
       default:                                   // unknown type
         addr += len;
         break; } } }

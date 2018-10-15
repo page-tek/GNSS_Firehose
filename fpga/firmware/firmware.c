@@ -12,7 +12,12 @@ int phy_poll_enable;            // poll the Ethernet PHY SMI bus
 int agc_enable;                 // gain control: automatic or manual
 int gain[N_CHANNEL];            // channel gains (10-bit PWM)
 
-int IPaddr = 0xC0A8142D; //192.168.20.45
+char startup_msg[] = "\r\nGNSS Firehose\r\n";
+char IP_msg[] = "IP Address = ";
+char MAC_msg[] = "MAC Address = ";
+
+// default settings
+int IPaddr = 0xC0A80101; //192.168.20.45
 char MACaddr[6] = {0x00,0x01,0x02,0x03,0x04,0x09};
 
 #include "delay.c"
@@ -74,8 +79,28 @@ void poll()
 //
 
 int main()
-{ hw_init();            // initialize hardware
-  puts("Boot\n");
+{ 
+  int i;
+
+  puts(startup_msg);
+  hw_init();            // initialize hardware
+  puts(IP_msg);         // print IP address
+  putint((IPaddr>>24)&0xFF);
+  putchar('.');
+  putint((IPaddr>>16)&0xFF);
+  putchar('.'); 
+  putint((IPaddr>>8)&0xFF);
+  putchar('.'); 
+  putint((IPaddr)&0xFF);
+  puts("\r\n");
+  puts(MAC_msg);        // print MAC address
+  for(i=0;i<5;i++) {
+    puthex(MACaddr[i]);
+    putchar(':');
+  }
+  puthex(MACaddr[5]);
+  puts("\r\n");
+
   for (;;) {
     uart_service();     // service any UART commands
     eth_service();      // service any Ethernet commands

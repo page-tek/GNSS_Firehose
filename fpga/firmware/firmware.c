@@ -6,11 +6,11 @@
 #define N_CHANNEL 3
 #define N_ADC     4
 
-unsigned int jiffies;           // system time
-int link_up;                    // Ethernet link status
-int phy_poll_enable;            // poll the Ethernet PHY SMI bus
-int agc_enable;                 // gain control: automatic or manual
-int gain[N_CHANNEL];            // channel gains (10-bit PWM)
+unsigned int jiffies;          // system time
+int link_up = 0;               // Ethernet link status
+int phy_stream = 0;            // disable streaming by default
+int agc_enable = 0;            // gain control manual
+int gain[N_CHANNEL];           // channel gains (10-bit PWM)
 
 char startup_msg[] = "\r\nGNSS Firehose\r\n";
 char IP_msg[] = "IP Address = ";
@@ -33,18 +33,9 @@ char MACaddr[6] = {0x00,0x01,0x02,0x03,0x04,0x09};
 
 
 
-void eth_service()
-{ if (!eth_rx_ready())
-    return;
-  process_eth_packet(); }
-
-void uart_service()
-{ if (!uart_rx_ready())
-    return;
-  process_char(uart_rx_data()); }
-
 void hw_init()
-{ clock_init();
+{
+  clock_init();
   port_write(PORT_DCM_RST,1);
   delay_10ms();
   port_write(PORT_DCM_RST,0);
@@ -59,20 +50,9 @@ void hw_init()
   set_agc(1,240);              // initial AGC value: 240
   set_agc(2,240);
   set_agc(3,240);
-  phy_poll_enable = 0;         // enable PHY polling by default
-  agc_enable = 1;              // enable AGC by default
-  spi_read_config(); }         // read and apply configuration and calibration parameters from flash
-
-void poll()
-{ unsigned int j;
-  j = get_jiffies();
-  if (j==jiffies)          // has jiffies counter changed?
-    return;
-  jiffies = j;             // do once per jiffy (once per approx. 30 ms):
-  if (agc_enable)
-    agc_service();         // service the AGC loops
-  if (phy_poll_enable)
-    phy_service(); }       // poll Ethernet PHY for link status
+  agc_enable = 1;              // enable automatic AGC
+  spi_read_config();           // read and apply configuration and calibration parameters from flash
+}
 
 //
 // main loop
@@ -81,6 +61,7 @@ void poll()
 int main()
 { 
   int i;
+  unsigned int j;
 
   puts(startup_msg);
   hw_init();            // initialize hardware
@@ -101,9 +82,29 @@ int main()
   puthex(MACaddr[5]);
   puts("\r\n");
 
-  for (;;) {
-    uart_service();     // service any UART commands
-    eth_service();      // service any Ethernet commands
-    poll(); }           // low-rate polling of various background services
+  for (;;)
+  {
+    if (uart_rx_ready())            // service any UART commands
+      process_char(uart_rx_data());
 
-  return 0; }
+    if (eth_rx_ready())             // service any Ethernet commands
+      process_eth_packet();
+
+    if (link_up && phy_stream==0x01)
+    {
+      setup_stream_packet();
+      port_write(PORT_STREAMER_ENABLE,1);  //start steamer
+      phy_stream==0xFF;
+    }
+
+    j = get_jiffies();              // low-rate polling of various background services
+    if (j!=jiffies)                 // has jiffies counter changed?
+    {
+      jiffies = j;                  // do once per jiffy (once per approx. 30 ms):
+      if (agc_enable)
+        agc_service();              // service the AGC loops
+      phy_service();                // update Ethernet PHY link status
+    }
+  }
+  return 0;
+}

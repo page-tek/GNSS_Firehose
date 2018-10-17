@@ -10,7 +10,7 @@ int global_read(int addr)
       case 5: return (gain[2]>>8)&0xff; break;
       case 6: return link_up; break;
       case 7: return agc_enable; break;
-      case 8: return phy_poll_enable; break;
+      case 8: return phy_stream; break;
       default: return 0;
     }
 }
@@ -27,7 +27,12 @@ void global_set(int addr,int val)
       case 4: gain[2] = (gain[2]&0xffffff00) | (val&0xff); break;
       case 5: gain[2] = (gain[2]&0xffff00ff) | ((val&0xff)<<8); break;
       case 7: agc_enable = val; break;
-      case 8: phy_poll_enable = val; break;
+      case 8: phy_stream = val; if (!val) 
+        {
+          port_write(PORT_STREAMER_ENABLE,0);
+          delay_10ms();
+        } 
+        break; // allow packet to flush
     }
 }
 

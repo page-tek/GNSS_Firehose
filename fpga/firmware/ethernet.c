@@ -85,9 +85,10 @@ void phy_read(int addr)
   putchar(x&0xff); }
 
 void phy_service()
-{ int r;
-  int status;
+{ 
+  int r;
   r = phy_smi_read(1);
-  status = (r&0x04)!=0;
-  link_up = status;
-  port_write(PORT_STREAMER_ENABLE,status); }
+  link_up = (r&0x04)!=0;
+  if (!link_up) port_write(PORT_STREAMER_ENABLE,0); //Stop streaming if no link
+}
+

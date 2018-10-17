@@ -85,55 +85,37 @@ module packet_streamer(
     PREAMBLE_5 = 7'd6,
     PREAMBLE_6 = 7'd7,
     PREAMBLE_7 = 7'd8,
-    DEST_0 = 7'd9,
-    DEST_1 = 7'd10,
-    DEST_2 = 7'd11,
-    DEST_3 = 7'd12,
-    DEST_4 = 7'd13,
-    DEST_5 = 7'd14,
-    SRC_0 = 7'd15,
-    SRC_1 = 7'd16,
-    SRC_2 = 7'd17,
-    SRC_3 = 7'd18,
-    SRC_4 = 7'd19,
-    SRC_5 = 7'd20,
-    TYPELEN_0 = 7'd21,
-    TYPELEN_1 = 7'd22,
-    TICKS_0 = 7'd23,
-    TICKS_1 = 7'd24,
-    TICKS_2 = 7'd25,
-    TICKS_3 = 7'd26,
-    TICKS_4 = 7'd27,
-    TICKS_5 = 7'd28,
-    TICKS_6 = 7'd29,
-    TICKS_7 = 7'd30,
-    PAYLOAD = 7'd31,
-    FCS_0 = 7'd32,
-    FCS_1 = 7'd33,
-    FCS_2 = 7'd34,
-    FCS_3 = 7'd35,
-    IPG_0 = 7'd36,
-    IPG_1 = 7'd37,
-    IPG_2 = 7'd38,
-    IPG_3 = 7'd39,
-    IPG_4 = 7'd40,
-    IPG_5 = 7'd41,
-    IPG_6 = 7'd42,
-    IPG_7 = 7'd43,
-    IPG_8 = 7'd44,
-    IPG_9 = 7'd45,
-    IPG_10 = 7'd46,
-    IPG_11 = 7'd47,
-    CMD_PREAMBLE_0 = 7'd48,
-    CMD_PREAMBLE_1 = 7'd49,
-    CMD_PREAMBLE_2 = 7'd50,
-    CMD_PREAMBLE_3 = 7'd51,
-    CMD_PREAMBLE_4 = 7'd52,
-    CMD_PREAMBLE_5 = 7'd53,
-    CMD_PREAMBLE_6 = 7'd54,
-    CMD_PREAMBLE_7 = 7'd55,
-    CMD_PAYLOAD_0 = 7'd56,
-    CMD_PAYLOAD_1 = 7'd57;
+    IP_0 = 7'd9,
+    IP_1 = 7'd10,
+    IP_2 = 7'd11,
+    IP_3 = 7'd12,
+    PAYLOAD = 7'd13,
+    FCS_0 = 7'd14,
+    FCS_1 = 7'd15,
+    FCS_2 = 7'd16,
+    FCS_3 = 7'd17,
+    IPG_0 = 7'd18,
+    IPG_1 = 7'd19,
+    IPG_2 = 7'd20,
+    IPG_3 = 7'd21,
+    IPG_4 = 7'd22,
+    IPG_5 = 7'd23,
+    IPG_6 = 7'd24,
+    IPG_7 = 7'd25,
+    IPG_8 = 7'd26,
+    IPG_9 = 7'd27,
+    IPG_10 = 7'd28,
+    IPG_11 = 7'd29,
+    CMD_PREAMBLE_0 = 7'd30,
+    CMD_PREAMBLE_1 = 7'd31,
+    CMD_PREAMBLE_2 = 7'd32,
+    CMD_PREAMBLE_3 = 7'd33,
+    CMD_PREAMBLE_4 = 7'd34,
+    CMD_PREAMBLE_5 = 7'd35,
+    CMD_PREAMBLE_6 = 7'd36,
+    CMD_PREAMBLE_7 = 7'd37,
+    CMD_PAYLOAD_0 = 7'd38,
+    CMD_PAYLOAD_1 = 7'd39;
 
   reg [6:0] state;
   reg flag_1, flag_2;
@@ -176,6 +158,7 @@ module packet_streamer(
             tx_ctl <= 2'b00;
           end else if ((flag_1 ^ flag_2)  && streamer_enable) begin
             state <= PREAMBLE_0;
+            cmd_addr <= 0;
             crc_reset <= 1;
             pticks <= ticks;
             packet_length <= packet_length_w;
@@ -183,36 +166,24 @@ module packet_streamer(
             tx_ctl <= 2'b00;
           end else
             tx_ctl <= 2'b00;
-        PREAMBLE_0: begin tx_data <= 8'h55; tx_ctl <= 2'b11; state <= PREAMBLE_1; end                     // send a payload packet of quantized samples
+        PREAMBLE_0: begin tx_data <= 8'h55; tx_ctl <= 2'b11; state <= PREAMBLE_1; end  // send a payload packet of quantized samples
         PREAMBLE_1: begin tx_data <= 8'h55; state <= PREAMBLE_2; end
         PREAMBLE_2: begin tx_data <= 8'h55; state <= PREAMBLE_3; end
         PREAMBLE_3: begin tx_data <= 8'h55; state <= PREAMBLE_4; end
         PREAMBLE_4: begin tx_data <= 8'h55; state <= PREAMBLE_5; end
         PREAMBLE_5: begin tx_data <= 8'h55; state <= PREAMBLE_6; end
-        PREAMBLE_6: begin tx_data <= 8'h55; state <= PREAMBLE_7; end
-        PREAMBLE_7: begin tx_data <= 8'hd5; state <= DEST_0; end
-        DEST_0: begin crc_reset <= 0; crc_en <= 1; tx_data <= 8'hc8; state <= DEST_1; end
-        DEST_1: begin tx_data <= 8'h1f; state <= DEST_2; end
-        DEST_2: begin tx_data <= 8'h66; state <= DEST_3; end
-        DEST_3: begin tx_data <= 8'h23; state <= DEST_4; end
-        DEST_4: begin tx_data <= 8'hd7; state <= DEST_5; end
-        DEST_5: begin tx_data <= 8'h36; state <= SRC_0; end
-        SRC_0: begin tx_data <= mac_addr[47:40]; state <= SRC_1; end
-        SRC_1: begin tx_data <= mac_addr[39:32]; state <= SRC_2; end
-        SRC_2: begin tx_data <= mac_addr[31:24]; state <= SRC_3; end
-        SRC_3: begin tx_data <= mac_addr[23:16]; state <= SRC_4; end
-        SRC_4: begin tx_data <= mac_addr[15:8]; state <= SRC_5; end
-        SRC_5: begin tx_data <= mac_addr[7:0]; state <= TYPELEN_0; end
-        TYPELEN_0: begin tx_data <= 8'h88; state <= TYPELEN_1; end
-        TYPELEN_1: begin tx_data <= 8'hb5; state <= TICKS_0; end
-        TICKS_0: begin tx_data <= pticks[63:56]; state <= TICKS_1; end
-        TICKS_1: begin tx_data <= pticks[55:48]; state <= TICKS_2; end
-        TICKS_2: begin tx_data <= pticks[47:40]; state <= TICKS_3; end
-        TICKS_3: begin tx_data <= pticks[39:32]; state <= TICKS_4; end
-        TICKS_4: begin tx_data <= pticks[31:24]; state <= TICKS_5; end
-        TICKS_5: begin tx_data <= pticks[23:16]; state <= TICKS_6; end
-        TICKS_6: begin tx_data <= pticks[15:8]; raddr <= 0; state <= TICKS_7; end
-        TICKS_7: begin tx_data <= pticks[7:0]; raddr <= 1; state <= PAYLOAD; end
+        PREAMBLE_6: begin tx_data <= 8'h55; cmd_addr <= 6'd0; state <= PREAMBLE_7; end
+        PREAMBLE_7: begin tx_data <= 8'hd5; cmd_addr <= 6'd1; state <= IP_0; end
+        IP_0: begin crc_reset <= 0; crc_en <= 1; tx_data <= cmd_data; cmd_addr <= 6'd2; state <= IP_1; end
+        IP_1:
+          begin  
+            tx_data <= cmd_data;
+            cmd_addr <= cmd_addr+1;
+            if (cmd_addr==6'd40)
+              state <= IP_2;
+          end
+        IP_2: begin tx_data<=cmd_data; cmd_addr <= cmd_addr+1; raddr <= 0; state <= IP_3; end
+        IP_3: begin tx_data<=cmd_data; cmd_addr <= cmd_addr+1; raddr <= 1; state <= PAYLOAD; end
         PAYLOAD:
           begin
             tx_data <= flag ? data0 : data1;
